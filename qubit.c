@@ -48,7 +48,7 @@ static void qubithash(void *state, const void *input)
 	//---local cubehash var ---
 	cubehashParam		 ctx_cubehash;
 	//---local simd var ---
-	hashState_sd	     ctx_simd1;
+	hashState_sd *	     ctx_simd1;
 	
     uint32_t hashA[16], hashB[16];	
 	
@@ -69,9 +69,13 @@ static void qubithash(void *state, const void *input)
     sph_shavite512_close(&ctx.shavite1, hashA);  
  //Hash_sh(512,(const BitSequence *)hashB,512,(BitSequence *)hashA);
 //-------simd512 vect128 --------------	
-	Init(&ctx_simd1,512);
-	Update(&ctx_simd1,(const BitSequence *)hashA,512);
-	Final(&ctx_simd1,(BitSequence *)hashB);
+	ctx_simd1=malloc(sizeof(hashState_sd));
+	Init(ctx_simd1,512);
+	Update(ctx_simd1,(const BitSequence *)hashA,512);
+	Final(ctx_simd1,(BitSequence *)hashB);
+	free(ctx_simd1->buffer);
+    free(ctx_simd1->A);
+	free(ctx_simd1);
 //-----------------	
 	sph_echo512 (&ctx.echo1, hashB, 64);   
     sph_echo512_close(&ctx.echo1, hashA); 

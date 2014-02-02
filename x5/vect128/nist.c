@@ -69,7 +69,10 @@ HashReturn InitIV(hashState_sd *state, int hashbitlen, const u32 *IV) {
   else
     memset(state->A, 0, 4*n*sizeof(u32));
 
+   // free(state->buffer);
+  //  free(state->A);	
   return SUCCESS;
+  
 }
 
 /* 
@@ -243,8 +246,8 @@ HashReturn Final(hashState_sd *state, BitSequence *hashval) {
     BitSequence mask = 0xff << (8 - (state->hashbitlen%8));
     hashval[state->hashbitlen/8 + 1] = bs[state->hashbitlen/8 + 1] & mask;
   }
-free(state->buffer);
-free(state->A);
+//free(state->buffer);
+//free(state->A);
   return SUCCESS;
 }
 

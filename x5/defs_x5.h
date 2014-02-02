@@ -3,7 +3,13 @@
 #define DEFS_X5_H__
 #include <emmintrin.h>
 typedef unsigned char BitSequence;
-typedef unsigned long long DataLength;
+
+#ifdef HAS_64
+  typedef unsigned long long DataLength;
+#else
+ typedef unsigned long DataLength;
+#endif
+
 typedef enum { SUCCESS = 0, FAIL = 1, BAD_HASHBITLEN = 2} HashReturn;
 
 typedef unsigned char uint8;

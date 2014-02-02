@@ -9,11 +9,11 @@
 
 //typedef unsigned char BitSequence;
 
-#ifdef HAS_64
-  typedef u64 DataLength;
-#else
+//#ifdef HAS_64
+ // typedef u64 DataLength;
+//#else
  // typedef unsigned long DataLength;
-#endif
+//#endif
 
 //typedef enum { SUCCESS = 0, FAIL = 1, BAD_HASHBITLEN = 2} HashReturn;
 
